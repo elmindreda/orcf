@@ -1,0 +1,13 @@
+name: Build and Test
+on: [push, pull_request]
+jobs:
+    build:
+        runs-on: windows-latest
+        steps:
+            - uses: actions/checkout@v2
+            - name: Configure
+              run: cmake -S . -B build -G "Visual Studio 16 2019" -A Win32 -D CMAKE_SYSTEM_VERSION=10.0.18362.0
+            - name: Compile
+              run: cmake --build build --config Debug
+            - name: Test
+              run: ctest --test-dir build --build-config Debug --verbose

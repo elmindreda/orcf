@@ -35,3 +35,13 @@ if (MINGW)
     target_link_options(orcf_ddraw PRIVATE -Wl,--enable-stdcall-fixup)
 endif()
 
+enable_testing()
+
+add_executable(orcf_test)
+target_sources(orcf_test PRIVATE orcf_test.c)
+target_link_libraries(orcf_test PRIVATE ddraw)
+
+add_test(NAME orcf_test
+         COMMAND orcf_test
+         WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}")
+
